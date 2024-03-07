@@ -9,11 +9,18 @@ import useCalculator from '../hooks/useCalculator';
 
 export default function CalculadoraScreen() {
   const {
+    formula,
     number,
+    prevNumber,
     buildNumber,
-    setNumber,
     eliminarUltimoCaracter,
     agregarSignoNegativo,
+    divide0peration,
+    multiplyOperation,
+    subtractOperation,
+    addOperation,
+    clear,
+    calculatorResult,
   } = useCalculator();
   return (
     <View style={globalStyle.calculatorContainer}>
@@ -22,13 +29,23 @@ export default function CalculadoraScreen() {
           adjustsFontSizeToFit
           numberOfLines={1}
           style={globalStyle.mainResult}>
-          {number}
+          {formula}
         </Text>
-        <Text style={globalStyle.subResult}>5000</Text>
+        {formula === prevNumber ? (
+          // eslint-disable-next-line react/self-closing-comp
+          <Text style={globalStyle.subResult}></Text>
+        ) : (
+          <Text
+            adjustsFontSizeToFit
+            numberOfLines={1}
+            style={globalStyle.subResult}>
+            {prevNumber === '0' ? ' ' : prevNumber}
+          </Text>
+        )}
       </View>
       <View style={globalStyle.row}>
         <CalculatorButton
-          onPres={() => setNumber('0')}
+          onPres={clear}
           content="c"
           color={colors.lightGrey}
           textColor={true}
@@ -40,13 +57,13 @@ export default function CalculadoraScreen() {
           textColor={true}
         />
         <CalculatorButton
-          onPres={() => eliminarUltimoCaracter(number)}
+          onPres={eliminarUltimoCaracter}
           content="del"
           color={colors.lightGrey}
           textColor={true}
         />
         <CalculatorButton
-          onPres={() => console.log('/')}
+          onPres={divide0peration}
           content="/"
           color={colors.orange}
         />
@@ -56,7 +73,7 @@ export default function CalculadoraScreen() {
         <CalculatorButton onPres={() => buildNumber('8')} content="8" />
         <CalculatorButton onPres={() => buildNumber('9')} content="9" />
         <CalculatorButton
-          onPres={() => console.log('x')}
+          onPres={multiplyOperation}
           content="x"
           color={colors.orange}
         />
@@ -66,7 +83,7 @@ export default function CalculadoraScreen() {
         <CalculatorButton onPres={() => buildNumber('5')} content="5" />
         <CalculatorButton onPres={() => buildNumber('6')} content="6" />
         <CalculatorButton
-          onPres={() => console.log('-')}
+          onPres={subtractOperation}
           content="-"
           color={colors.orange}
         />
@@ -76,7 +93,7 @@ export default function CalculadoraScreen() {
         <CalculatorButton onPres={() => buildNumber('2')} content="2" />
         <CalculatorButton onPres={() => buildNumber('3')} content="3" />
         <CalculatorButton
-          onPres={() => console.log('+')}
+          onPres={addOperation}
           content="+"
           color={colors.orange}
         />
@@ -89,7 +106,7 @@ export default function CalculadoraScreen() {
         />
         <CalculatorButton onPres={() => buildNumber('.')} content="." />
         <CalculatorButton
-          onPres={() => console.log('=')}
+          onPres={calculatorResult}
           content="="
           color={colors.orange}
         />

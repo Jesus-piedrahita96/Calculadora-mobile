@@ -23,7 +23,7 @@ export const globalStyle = StyleSheet.create({
   mainResult: {
     marginBottom: 10,
     color: colors.textPrimary,
-    fontSize: 70,
+    fontSize: 50,
     fontWeight: '400',
     textAlign: 'right',
   },
